@@ -41,3 +41,21 @@ Notes:
 ## Security Note
 
 The Anthropic client currently enables browser-side calls with dangerouslyAllowBrowser. For production use, move LLM calls to a server endpoint so API keys are not exposed to clients.
+
+## GitHub Pages Automation
+
+This repo now auto-deploys to GitHub Pages using GitHub Actions.
+
+Workflow file:
+- [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml)
+
+What happens:
+- Every push to main triggers a build and deploy.
+- The Vite base path is set automatically for production in [vite.config.js](vite.config.js).
+
+One-time GitHub setting:
+1. Go to your repository Settings.
+2. Open Pages.
+3. Under Build and deployment, set Source to GitHub Actions.
+
+After that, push to main and your site will update automatically.
