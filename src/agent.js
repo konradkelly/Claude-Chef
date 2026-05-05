@@ -1,9 +1,8 @@
 export async function getRecipeSuggestion(ingredientsArr) {
-    const recipeApiUrl = import.meta.env.VITE_RECIPE_API_URL || "https://claude-chef-api.konradky.workers.dev/recipe"
-
-    if (!recipeApiUrl) {
-        throw new Error("Recipe API is not configured. Set VITE_RECIPE_API_URL and redeploy.")
-    }
+    const configuredApiUrl = import.meta.env.VITE_RECIPE_API_URL
+    const recipeApiUrl = configuredApiUrl && configuredApiUrl.trim()
+        ? configuredApiUrl
+        : "https://claude-chef-api.konradky.workers.dev/recipe"
 
     const response = await fetch(recipeApiUrl, {
         method: "POST",
