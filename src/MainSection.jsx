@@ -1,15 +1,23 @@
 import React from "react"
 import IngredientsList from "./IngredientsList"
 import ClaudeRecipe from "./ClaudeRecipe"
-import { getRecipeFromChefClaude } from "./agent"
+import { getRecipeSuggestion } from "./agent"
 
 export default function MainSection() {
     const [ingredients, setIngredients] = React.useState([])
     const [recipe, setRecipe] = React.useState("")
+    const [isLoading, setIsLoading] = React.useState(false)
     
     async function getRecipe() {
-        const recipeMarkdown = await getRecipeFromChefClaude(ingredients)
-        setRecipe(recipeMarkdown)
+        setIsLoading(true)
+        try {
+            const recipeMarkdown = await getRecipeSuggestion(ingredients)
+            setRecipe(recipeMarkdown)
+        } catch (error) {
+            setRecipe(`### Unable to generate a recipe right now\n\n${error.message}`)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     function addIngredient(formData) {
@@ -33,6 +41,7 @@ export default function MainSection() {
             <IngredientsList 
                 ingredients={ingredients} 
                 getRecipe={getRecipe} 
+                isLoading={isLoading}
                 />}
             {recipe && <ClaudeRecipe recipe={recipe} />}
         </main>
