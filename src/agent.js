@@ -1,8 +1,10 @@
+const DEFAULT_RECIPE_API_URL = "https://claude-chef-api.konradky.workers.dev/recipe"
+
 export async function getRecipeSuggestion(ingredientsArr) {
     const configuredApiUrl = import.meta.env.VITE_RECIPE_API_URL
     const recipeApiUrl = configuredApiUrl && configuredApiUrl.trim()
-        ? configuredApiUrl
-        : "https://claude-chef-api.konradky.workers.dev/recipe"
+        ? configuredApiUrl.trim()
+        : DEFAULT_RECIPE_API_URL
 
     const response = await fetch(recipeApiUrl, {
         method: "POST",
