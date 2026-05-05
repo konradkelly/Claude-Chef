@@ -1,0 +1,7 @@
+name = "claude-chef-api"
+main = "src/index.js"
+compatibility_date = "2026-05-04"
+
+[vars]
+ALLOWED_ORIGIN = "https://konradkelly.github.io"
+ANTHROPIC_MODEL = "claude-3-5-sonnet-latest"
